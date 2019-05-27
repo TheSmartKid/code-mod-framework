@@ -41,8 +41,7 @@ namespace lib {
 		uint64_t unk_ptr;
 	};
 
-	struct L2CInnerFunctionBase
-	{
+	struct L2CInnerFunctionBase {
 		uint64_t unk;
 		uint32_t refcnt;
 	} L2CInnerFunctionBase;

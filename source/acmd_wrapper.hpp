@@ -3,10 +3,10 @@
 
 #include <switch.h>
 
+#include <initializer_list>
+
 #include "acmd_imports.hpp"
 #include "l2c_imports.hpp"
-
-#include <initializer_list>
 
 using namespace lib;
 
@@ -19,7 +19,25 @@ namespace app::sv_system {
 
 namespace app::lua_bind {
 	namespace AttackModule {
+		/**
+		 * terminate a specific hitbox
+		 * arguments:
+		 * - module_accessor (u64) -- one of the fields of the ACMD struct
+		 * - ID (int)
+		 * - ??? (bool)
+		 */
+		void clear(u64, int, bool) asm("_ZN3app8lua_bind24AttackModule__clear_implEPNS_26BattleObjectModuleAccessorEib") LINKABLE;
+		
+		/**
+		 * terminate all hitboxes
+		 * arguments:
+		 * - module_accessor (u64) -- one of the fields of the ACMD struct
+		 */
 		void clear_all(u64) asm("_ZN3app8lua_bind28AttackModule__clear_all_implEPNS_26BattleObjectModuleAccessorE") LINKABLE;
+		
+		
+		void set_attack_height_all(u64, u64, bool) asm("_ZN3app8lua_bind40AttackModule__set_attack_height_all_implEPNS_26BattleObjectModuleAccessorENS_12AttackHeightEb") LINKABLE;
+		void set_catch_only_all(u64, bool, bool) asm("_ZN3app8lua_bind37AttackModule__set_catch_only_all_implEPNS_26BattleObjectModuleAccessorEbb") LINKABLE;
 	}
 
 	namespace ControlModule {
@@ -30,9 +48,7 @@ namespace app::lua_bind {
 		// boma, effect, joint, pos, rot, size, random_pos, random_rot, NO_SCALE?, attr?, unkint1, unkint2
 		uint req_on_joint(u64, u64, u64, const Vector3f*, const Vector3f*, float a6, const Vector3f*, const Vector3f*, bool, uint, int, int) 
 			asm("_ZN3app8lua_bind31EffectModule__req_on_joint_implEPNS_26BattleObjectModuleAccessorEN3phx6Hash40ES4_RKNS3_8Vector3fES7_fS7_S7_bjii") LINKABLE;
-
-		void kill_kind(u64, u64, bool, bool) 
-			asm("_ZN3app8lua_bind28EffectModule__kill_kind_implEPNS_26BattleObjectModuleAccessorEN3phx6Hash40Ebb") LINKABLE;
+		void kill_kind(u64, u64, bool, bool) asm("_ZN3app8lua_bind28EffectModule__kill_kind_implEPNS_26BattleObjectModuleAccessorEN3phx6Hash40Ebb") LINKABLE;
 	}
 
 	namespace FighterManager {
@@ -41,6 +57,10 @@ namespace app::lua_bind {
 
 	namespace FighterInformation {
 		bool is_operation_cpu(u64) asm("_ZN3app8lua_bind41FighterInformation__is_operation_cpu_implEPNS_18FighterInformationE") LINKABLE;
+	}
+
+	namespace GrabModule {
+		void set_rebound(u64, bool) asm("_ZN3app8lua_bind28GrabModule__set_rebound_implEPNS_26BattleObjectModuleAccessorEb") LINKABLE;
 	}
 
 	namespace HitModule {
@@ -66,11 +86,15 @@ namespace app::lua_bind {
 	}
 
 	namespace WorkModule {
+		float get_float(u64, int) asm("_ZN3app8lua_bind26WorkModule__get_float_implEPNS_26BattleObjectModuleAccessorEi") LINKABLE;
 		int get_int(u64, int) asm("_ZN3app8lua_bind24WorkModule__get_int_implEPNS_26BattleObjectModuleAccessorEi") LINKABLE;
 		void inc_int(u64, int) asm("_ZN3app8lua_bind24WorkModule__inc_int_implEPNS_26BattleObjectModuleAccessorEi") LINKABLE;
+		float get_param_float(u64, u64, u64) asm("_ZN3app8lua_bind32WorkModule__get_param_float_implEPNS_26BattleObjectModuleAccessorEmm") LINKABLE;
 		int get_param_int(u64, u64, u64) asm("_ZN3app8lua_bind30WorkModule__get_param_int_implEPNS_26BattleObjectModuleAccessorEmm") LINKABLE;
 		void on_flag(u64, int) asm("_ZN3app8lua_bind24WorkModule__on_flag_implEPNS_26BattleObjectModuleAccessorEi") LINKABLE;
 		void off_flag(u64, int) asm("_ZN3app8lua_bind25WorkModule__off_flag_implEPNS_26BattleObjectModuleAccessorEi") LINKABLE;
+		float set_float(u64, float, int) asm("_ZN3app8lua_bind26WorkModule__set_float_implEPNS_26BattleObjectModuleAccessorEfi") LINKABLE;
+		int set_int(u64, int, int) asm("_ZN3app8lua_bind24WorkModule__set_int_implEPNS_26BattleObjectModuleAccessorEii") LINKABLE;
 	}
 }
 
@@ -113,7 +137,6 @@ struct ACMD {
 		l2c_agent->clear_lua_stack(); 
 		for (L2CValue elem : list)
 			l2c_agent->push_lua_stack(&elem);
-
 		acmd_func(l2c_agent->lua_state_agent);
 		l2c_agent->clear_lua_stack();    
 	}
@@ -141,7 +164,7 @@ struct ACMD {
 		u64 i9,  // Fixed Weight
 		u64 i10, // Shield Damage
 		float f8,  // Trip Chance
-		u64 i11, // Rehite Rate
+		u64 i11, // Rehit Rate
 		u64 i12, // Reflectable
 		u64 i13, // Absorbable
 		u64 i14, // Flinchless
@@ -191,7 +214,7 @@ struct ACMD {
 		u64 i9,  // Fixed Weight
 		u64 i10, // Shield Damage
 		float f8,  // Trip Chance
-		u64 i11, // Rehite Rate
+		u64 i11, // Rehit Rate
 		u64 i12, // Reflectable
 		u64 i13, // Absorbable
 		u64 i14, // Flinchless
