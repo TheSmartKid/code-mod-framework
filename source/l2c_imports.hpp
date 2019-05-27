@@ -3,6 +3,8 @@
 
 #include <switch.h>
 
+#include <math.h>
+
 #include "l2c.hpp"
 #include "lua_bind_hash.hpp"
 
@@ -51,13 +53,15 @@ namespace lib {
 		union {
 			uint64_t raw;
 			float raw_float;
-			void* raw_pointer;
-			struct L2CTable* raw_table;
-			struct L2CInnerFunctionBase* raw_innerfunc;
+			// void* raw_pointer;
+			// struct L2CTable* raw_table;
+			// struct L2CInnerFunctionBase* raw_innerfunc;
 			//std::string* raw_string;
 		};
 
-		L2CValue() {}
+		L2CValue() {
+			type = L2C_void;
+		}
 
 		L2CValue(bool val) {
 			type = L2C_bool;
@@ -75,17 +79,21 @@ namespace lib {
 		}
 
 		L2CValue(float val) {
-			type = L2C_number;
-			raw_float = val;
+			if (isnan(val)) {
+				type = L2C_void;
+			} else {
+				type = L2C_number;
+				raw_float = val;
+			}
 		}
 
 		L2CValue(double val) {
-			type = L2C_number;
-			raw_float = val;
-		}
-
-		L2CValue(const char* str) {
-			type = L2C_void;
+			if (isnan(val)) {
+				type = L2C_void;
+			} else {
+				type = L2C_number;
+				raw_float = val;
+			}
 		}
 
 		operator bool() asm("_ZNK3lib8L2CValuecvbEv") LINKABLE;

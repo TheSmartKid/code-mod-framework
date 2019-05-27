@@ -159,7 +159,7 @@ struct ACMD {
 			L2CValue(i1), L2CValue(i2), L2CValue(h1), L2CValue(f1),
 			L2CValue(i3), L2CValue(i4), L2CValue(i5), L2CValue(i6),
 			L2CValue(f2), L2CValue(f3), L2CValue(f4), L2CValue(f5),
-			L2CValue("void"), L2CValue("void"), L2CValue("void"), L2CValue(f6),
+			L2CValue(), L2CValue(), L2CValue(), L2CValue(f6),
 			L2CValue(f7), L2CValue(i7), L2CValue(i8), L2CValue(i9),
 			L2CValue(i10), L2CValue(f8), L2CValue(i11), L2CValue(i12),
 			L2CValue(i13), L2CValue(i14), L2CValue(i15), L2CValue(i16),
