@@ -75,8 +75,7 @@ u64 ivy_upsmash(L2CAgent* l2c_agent, void* variadic) {
 	if (acmd.is_excute()) {
 		WorkModule::on_flag(acmd.module_accessor, FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
 		/** 
-		 * This return statement is unusual, but for some reason
-		 * necessary. It may have to do with smash attacks in general.
+		 * This return statement is unusual, but for some reason necessary. It may have to do with smash attacks in general.
 		*/
 		return 0;
 	}
