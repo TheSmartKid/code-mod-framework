@@ -5,10 +5,8 @@
 
 #include <math.h>
 
-#include "l2c.h"
 #include "lua_bind_hash.h"
-
-#define LOAD64 *(u64 *)
+#include "useful.h"
 
 namespace lib {
 	enum L2CVarType {
