@@ -12,7 +12,11 @@ namespace app::sv_animcmd {
 	extern void is_excute(u64) asm("_ZN3app10sv_animcmd9is_excuteEP9lua_State") LINKABLE;
 	
 	/**
-	 * sets throw paramters
+	 * Sets throw paramters.
+	 * 
+	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
+	 * ACMD.wrap(app::sv_animcmd::ATK_ABS, { arg1, arg2, arg3 });
+	 * 
 	 * Arguments:
 	 * - kind (int) -- FIGHTER_ATTACK_ABSOLUTE_KIND_???
 	 * - ID (int) -- lower IDs have priority
@@ -34,7 +38,11 @@ namespace app::sv_animcmd {
 	extern u64 ATK_ABS(u64) asm("_ZN3app10sv_animcmd10ATTACK_ABSEP9lua_State") LINKABLE;
 	
 	/**
-	 * throw release
+	 * Causes a throw release. The thrown character takes the damage and knockback specified by ATK_ABS at the beginning of the script.
+	 * 
+	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
+	 * ACMD.wrap(app::sv_animcmd::ATK_HIT_ABS, { arg1, arg2, arg3 });
+	 * 
 	 * Arguments:
 	 * - ??? (int) -- usually FIGHTER_ATTACK_ABSOLUTE_KIND_THROW
 	 * - ??? (hash) -- usually hash40("throw")
@@ -46,6 +54,10 @@ namespace app::sv_animcmd {
 	
 	/**
 	 * Changes the damage of a specific hitbox.
+	 * 
+	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
+	 * ACMD.wrap(app::sv_animcmd::ATK_POWER, { arg1, arg2, arg3 });
+	 * 
 	 * arguments:
 	 * - ID (int)
 	 * - damage (float)
@@ -57,6 +69,7 @@ namespace app::sv_animcmd {
 	 * 
 	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
 	 * ACMD.wrap(app::sv_animcmd::ATTACK, { arg1, arg2, arg3 });
+	 * 
 	 * Arguments:
 	 * - ID (int) -- lower IDs have priority
 	 * - bone (hash)
@@ -101,6 +114,7 @@ namespace app::sv_animcmd {
 	 * 
 	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
 	 * ACMD.wrap(app::sv_animcmd::CATCH, { arg1, arg2, arg3 });
+	 * 
 	 * Arguments:
 	 * - ID (int)
 	 * - bone (hash) -- usually hash40("top")
@@ -125,6 +139,7 @@ namespace app::sv_animcmd {
 	 * 
 	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
 	 * ACMD.wrap(app::sv_animcmd::FT_MOTION_RATE, { arg1, arg2, arg3 });
+	 * 
 	 * Arguments:
 	 * - frame speed multipler (float)
 	 */
@@ -136,6 +151,7 @@ namespace app::sv_animcmd {
 	 * 
 	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
 	 * ACMD.wrap(app::sv_animcmd::REVERSE_LR, { arg1, arg2, arg3 });
+	 * 
 	 * Arguments: none
 	 */
 	extern u64 REVERSE_LR(u64) asm("_ZN3app10sv_animcmd10REVERSE_LREP9lua_State") LINKABLE;

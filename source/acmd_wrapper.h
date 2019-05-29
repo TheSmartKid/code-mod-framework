@@ -8,6 +8,18 @@
 #include "l2c_imports.h"
 #include "useful.h"
 
+namespace app::sv_module_access {
+	/**
+	 * Used to cause a grab release.
+	 * 
+	 * This function should not be called directly. Instead, use ACMD.wrap() like so:
+	 * ACMD.wrap(app::sv_module_access::grab, { arg1, arg2, arg3 });
+	 * 
+	 * arguments:
+	 * - flag (int) -- usually MA_MSC_CMD_GRAB_CLEAR_ALL
+	 */
+	u64 grab(u64) asm("_ZN3app16sv_module_access4grabEP9lua_State") LINKABLE;
+}
 
 namespace app::sv_system {
 	u64 battle_object(u64) asm("_ZN3app9sv_system13battle_objectEP9lua_State") LINKABLE;
