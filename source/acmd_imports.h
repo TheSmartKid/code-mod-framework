@@ -3,6 +3,8 @@
 
 #include <switch.h>
 
+#include "useful.h"
+
 namespace app::sv_animcmd {
 	extern void wait(u64, float) asm("_ZN3app10sv_animcmd4waitEP9lua_Statef") LINKABLE; // delay for a specified # of frames
 	extern void frame(u64, float) asm("_ZN3app10sv_animcmd5frameEP9lua_Statef") LINKABLE; // delay until a certain frame of the animation is reached
