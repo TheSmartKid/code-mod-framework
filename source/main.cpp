@@ -13,12 +13,12 @@
 #include "saltysd_ipc.h"
 #include "saltysd_dynamic.h"
 
-#include "saltysd_helper.hpp"
-#include "l2c.hpp"
-#include "l2c_imports.hpp"
-#include "acmd_imports.hpp"
+#include "saltysd_helper.h"
+#include "l2c.h"
+#include "l2c_imports.h"
+#include "acmd_imports.h"
 
-#include "script_replacement.hpp"
+#include "script_replacement.h"
 
 extern "C" {
 	extern u32 __start__;

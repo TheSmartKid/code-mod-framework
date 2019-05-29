@@ -6,6 +6,7 @@
 namespace app::sv_animcmd {
 	extern void wait(u64, float) asm("_ZN3app10sv_animcmd4waitEP9lua_Statef") LINKABLE; // delay for a specified # of frames
 	extern void frame(u64, float) asm("_ZN3app10sv_animcmd5frameEP9lua_Statef") LINKABLE; // delay until a certain frame of the animation is reached
+	extern void execute(u64, float) asm("_ZN3app10sv_animcmd7executeEP9lua_Statef") LINKABLE;
 	extern void is_excute(u64) asm("_ZN3app10sv_animcmd9is_excuteEP9lua_State") LINKABLE;
 	
 	/**
@@ -140,6 +141,17 @@ namespace app::sv_animcmd {
 	extern u64 SEARCH(u64) asm("_ZN3app10sv_animcmd6SEARCHEP9lua_State") LINKABLE; // detect box
 	extern u64 HIT_NODE(u64) asm("_ZN3app10sv_animcmd8HIT_NODEEP9lua_State") LINKABLE;
 	extern u64 WHOLE_HIT(u64) asm("_ZN3app10sv_animcmd9WHOLE_HITEP9lua_State") LINKABLE;
+	
+	extern u64 EFFECT(u64) asm("_ZN3app10sv_animcmd6EFFECTEP9lua_State") LINKABLE;
+	extern u64 EFFECT_ALPHA(u64) asm("_ZN3app10sv_animcmd12EFFECT_ALPHAEP9lua_State") LINKABLE;
+	extern u64 EFFECT_FOLLOW(u64) asm("_ZN3app10sv_animcmd13EFFECT_FOLLOWEP9lua_State") LINKABLE;
+	extern u64 LANDING_EFFECT(u64) asm("_ZN3app10sv_animcmd14LANDING_EFFECTEP9lua_State") LINKABLE;
+	extern u64 LAST_EFFECT_SET_RATE(u64) asm("_ZN3app10sv_animcmd20LAST_EFFECT_SET_RATEEP9lua_State") LINKABLE;
+    extern u64 LAST_EFFECT_SET_COLOR(u64) asm("_ZN3app10sv_animcmd21LAST_EFFECT_SET_COLOREP9lua_State") LINKABLE;
+    extern u64 EFFECT_FOLLOW_NO_SCALE(u64) asm("_ZN3app10sv_animcmd22EFFECT_FOLLOW_NO_SCALEEP9lua_State") LINKABLE;
+	
+	extern u64 QUAKE(u64) asm("_ZN3app10sv_animcmd5QUAKEEP9lua_State") LINKABLE;
+	extern u64 RUMBLE_HIT(u64) asm("_ZN3app10sv_animcmd10RUMBLE_HITEP9lua_State") LINKABLE;
 }
 
 #endif // ACMD_IMPORTS_H

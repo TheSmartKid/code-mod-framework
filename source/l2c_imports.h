@@ -5,8 +5,8 @@
 
 #include <math.h>
 
-#include "l2c.hpp"
-#include "lua_bind_hash.hpp"
+#include "l2c.h"
+#include "lua_bind_hash.h"
 
 #define LOAD64 *(u64 *)
 

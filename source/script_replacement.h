@@ -4,9 +4,9 @@
 
 #include "crc32.h"
 
-#include "l2c.hpp"
-#include "l2c_imports.hpp"
-#include "acmd_wrapper.hpp"
+#include "l2c.h"
+#include "l2c_imports.h"
+#include "acmd_wrapper.h"
 #include "const_value_table.h"
 
 using namespace lib;
