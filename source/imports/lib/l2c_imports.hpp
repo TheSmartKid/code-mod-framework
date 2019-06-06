@@ -3,10 +3,8 @@
 
 #include <switch.h>
 
-#include "l2c.hpp"
+#include "../../useful/useful.h"
 #include "lua_bind_hash.hpp"
-
-#define LOAD64 *(u64 *)
 
 namespace lib {
 	enum L2CVarType {
@@ -92,6 +90,10 @@ namespace lib {
 
 		void push_variadic(u64, const char*, void*) asm("_ZN3lib8L2CValue13push_variadicEmPKcRNS_7utility8VariadicE") LINKABLE;
 	};
+
+	u64 L2CValue_int(L2CValue*, int) asm("_ZN3lib8L2CValueC1Ei") LINKABLE;
+
+	u64 L2CValue_del(L2CValue*) asm("_ZN3lib8L2CValueD1Ev") LINKABLE;
 
 	struct L2CAgent {
 		uint64_t vtable;
