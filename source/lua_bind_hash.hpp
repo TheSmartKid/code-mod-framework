@@ -1,9 +1,10 @@
+#ifndef LUA_BIND_HASH_H
+#define LUA_BIND_HASH_H
+
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
 #include <inttypes.h>
-
-#include "lua_bind_hash.h"
 
 uint64_t lua_bind_hash(const void* data_, size_t len) {
 	int64_t *data = (int64_t*)data_;
@@ -96,3 +97,5 @@ uint64_t lua_bind_hash(const void* data_, size_t len) {
 uint64_t lua_bind_hash_str(const char* str) {
 	return lua_bind_hash(str, strlen(str));
 }
+
+#endif // LUA_BIND_HASH_H

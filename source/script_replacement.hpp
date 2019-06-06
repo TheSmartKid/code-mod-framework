@@ -3,18 +3,40 @@
 #include <stdint.h>
 
 #include "crc32.h"
-#include "useful.h"
 
-#include "l2c_imports.h"
-#include "acmd_imports.h"
-#include "acmd_wrapper.h"
+#include "l2c.hpp"
+#include "l2c_imports.hpp"
+#include "acmd_wrapper.hpp"
 #include "const_value_table.h"
-
-#include "script_replacement.h"
 
 using namespace lib;
 using namespace app::sv_animcmd;
 using namespace app::lua_bind;
+
+u64 shine_replace(L2CAgent* l2c_agent, void* variadic);
+u64 ivy_upsmash(L2CAgent* l2c_agent, void* variadic);
+u64 squirtle_utilt(L2CAgent* l2c_agent, void* variadic);
+
+void replace_scripts(L2CAgent* l2c_agent, u8 category, int kind) {
+	// fighter
+	if (category == BATTLE_OBJECT_CATEGORY_FIGHTER) {
+		// fox
+		if (kind == FIGHTER_KIND_FOX) {
+			l2c_agent->sv_set_function_hash(&shine_replace, hash40("game_speciallwstart"));
+			l2c_agent->sv_set_function_hash(&shine_replace, hash40("game_specialairlwstart"));
+		}
+
+		// ivysaur
+		if (kind == FIGHTER_KIND_PFUSHIGISOU) {
+			l2c_agent->sv_set_function_hash(&ivy_upsmash, hash40("game_attackhi4"));
+		}
+
+		// squirtle
+		if (kind == FIGHTER_KIND_PZENIGAME) {
+			l2c_agent->sv_set_function_hash(&squirtle_utilt, hash40("game_attackhi3"));
+		}
+	}
+}
 
 // AnimCMD replacement functions
 u64 shine_replace(L2CAgent* l2c_agent, void* variadic) {
@@ -53,7 +75,8 @@ u64 ivy_upsmash(L2CAgent* l2c_agent, void* variadic) {
 	if (acmd.is_excute()) {
 		WorkModule::on_flag(acmd.module_accessor, FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
 		/** 
-		 * This return statement is unusual, but for some reason necessary. It may have to do with smash attacks in general.
+		 * This return statement is unusual, but for some reason
+		 * necessary. It may have to do with smash attacks in general.
 		*/
 		return 0;
 	}
@@ -73,31 +96,6 @@ u64 ivy_upsmash(L2CAgent* l2c_agent, void* variadic) {
 
 	return 0;
 }
-
-void replace_scripts(L2CAgent* l2c_agent, u8 category, int kind) {
-	// fighter
-	if (category == BATTLE_OBJECT_CATEGORY_FIGHTER) {
-		// fox
-		if (kind == FIGHTER_KIND_FOX) {
-			l2c_agent->sv_set_function_hash(&shine_replace, hash40("game_speciallwstart"));
-			l2c_agent->sv_set_function_hash(&shine_replace, hash40("game_specialairlwstart"));
-		}
-
-		// ivysaur
-		if (kind == FIGHTER_KIND_PFUSHIGISOU) {
-			l2c_agent->sv_set_function_hash(&ivy_upsmash, hash40("game_attackhi4"));
-		}
-
-		// squirtle
-		if (kind == FIGHTER_KIND_PZENIGAME) {
-			l2c_agent->sv_set_function_hash(&squirtle_utilt, hash40("game_attackhi3"));
-		}
-	}
-}
-
-// ****************************************
-// ***** DO NOT EDIT BELOW THIS POINT *****
-// ****************************************
 
 void* sv_get_status_func(u64 l2c_agentbase, int status_kind, u64 key) {
 	u64 unk48 = LOAD64(l2c_agentbase + 0x48);

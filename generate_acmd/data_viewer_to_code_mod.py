@@ -31,7 +31,7 @@ def get_arg(arg_str, wrap_args=False):
 
 def get_args(args_str, wrap_args=False):
 	args_str = args_str.strip()
-	parsed_args = [get_arg(arg, wrap_args) for arg in args_str.split(",")]
+	parsed_args = [get_arg(arg, wrap_args) for arg in args_str.split(", ")]
 	parsed_str = ', '.join(parsed_args)
 	if wrap_args:
 		return "{ " + parsed_str + " }"
