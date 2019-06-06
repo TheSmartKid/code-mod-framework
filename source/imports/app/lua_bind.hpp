@@ -1,6 +1,8 @@
 #ifndef APP_LUA_BIND_H
 #define APP_LUA_BIND_H
 
+#include "../../useful/useful.h"
+
 namespace app::lua_bind {
 	namespace AttackModule {
 		void clear_all(u64) asm("_ZN3app8lua_bind28AttackModule__clear_all_implEPNS_26BattleObjectModuleAccessorE") LINKABLE;

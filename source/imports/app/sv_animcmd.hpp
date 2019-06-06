@@ -3,6 +3,8 @@
 
 #include <switch.h>
 
+#include "../../useful/useful.h"
+
 namespace app::sv_animcmd {
 	extern void wait(u64, float) asm("_ZN3app10sv_animcmd4waitEP9lua_Statef") LINKABLE;
 	extern void frame(u64, float) asm("_ZN3app10sv_animcmd5frameEP9lua_Statef") LINKABLE;

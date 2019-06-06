@@ -3,6 +3,8 @@
 
 #include <switch.h>
 
+#include "../../useful/useful.h"
+
 namespace app::sv_system {
 	u64 battle_object(u64) asm("_ZN3app9sv_system13battle_objectEP9lua_State") LINKABLE;
 	u64 battle_object_module_accessor(u64) asm("_ZN3app9sv_system29battle_object_module_accessorEP9lua_State") LINKABLE;
